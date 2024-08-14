@@ -57,7 +57,8 @@ function love.load()
 		vsync = true
 	})
 	love.window.setTitle("TriangleYAY")
-
+	love.mouse.setVisible(false)
+	love.mouse.setPosition(player.position_x, player.position_y)
 	circles_num = 0
 	points = 0
 	points_per_second = 0
@@ -120,17 +121,19 @@ function love.load()
 	start_time = os.time()
 end
 
+function love.mousemoved(mouse_x, mouse_y, dx, dy, istouch)
+    -- This function is called whenever the mouse moves.
+	player.position_x = mouse_x%WINDOW_WIDTH
+	player.position_y = mouse_y%WINDOW_HEIGHT
+
+end
+
 function love.update(dt)
 	fps = love.timer.getFPS()
 
 	-- Controls: WASD or arrow keys, ESC to quit
 	if love.keyboard.isDown("escape") then love.event.push("quit") end
 	if game_over == 0 then
-		if love.keyboard.isDown("s") or love.keyboard.isDown("down") then player.position_y = player.position_y + (player.speed * dt) end
-		if love.keyboard.isDown("w") or love.keyboard.isDown("up") then player.position_y = player.position_y - (player.speed * dt) end
-		if love.keyboard.isDown("d") or love.keyboard.isDown("right") then player.position_x = player.position_x + (player.speed * dt) end
-		if love.keyboard.isDown("a") or love.keyboard.isDown("left") then player.position_x = player.position_x - (player.speed * dt) end
-
 		-- Generating new triangle if player catched one
 		if circles_num < 3 then
 			for i=1, (3 - circles_num) do

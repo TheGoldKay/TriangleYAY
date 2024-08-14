@@ -1,2 +1,2 @@
-- [ ] Change movement from keyboard to mouse
+- [x] Change movement from keyboard to mouse
 - [ ] Make triangles move away from mouse (player)
